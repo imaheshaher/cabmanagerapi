@@ -4,7 +4,7 @@ from rest_framework.response import Response
 from rest_framework.generics import CreateAPIView
 from rest_framework import viewsets
 from .models import Driver,DriverLocation
-from .serializers import DriverSerializer,DriverLocationSerializer,DriverListSerializer
+from .serializers import DriverSerializer,DriverLocationSerializer,PassengerSerializer
 from rest_framework.views import APIView
 from .Harversigndist import Haversine
 # Create your views here.
@@ -37,12 +37,12 @@ class DriverLocationViewSet(viewsets.ModelViewSet):
 def driverlist(obj):
     longt,lat=obj
     data = DriverLocation.objects.all()
-    dict ={}
+    
     list=[]
     for i in data:
         dist=Haversine((lat,i.latitude),(longt,i.longitude)).km
         diverdict = {}
-        if dist >=4:
+        if dist <=4:
             driver=Driver.objects.get(id=i.driver.id)
             diverdict["name"]=driver.name
             diverdict["car_number"] =driver.car_number
@@ -51,10 +51,10 @@ def driverlist(obj):
     return list
 
 class DriverAPIView(CreateAPIView):
-    serializer_class=DriverListSerializer
+    serializer_class=PassengerSerializer
     def post(self,request,*args,**kwargs):
         if request.method=='POST':
-            longt = float(request.data.get("longitude"))
+            longt = (request.data.get("longitude"))
             lat = float(request.data.get("latitude"))
             list=[longt,lat]        
             obj = driverlist(list)
