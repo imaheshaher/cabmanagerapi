@@ -14,6 +14,6 @@ class DriverLocationSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
-class DriverListSerializer(serializers.Serializer):
+class PassengerSerializer(serializers.Serializer):
     longitude = serializers.DecimalField(max_digits=15,decimal_places=8)
     latitude = serializers.DecimalField(max_digits=15,decimal_places=8)
