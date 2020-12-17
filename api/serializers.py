@@ -4,9 +4,7 @@ from .models import Driver,DriverLocation
 class DriverSerializer(serializers.ModelSerializer):
     class Meta:
         model = Driver
-        fields = "__all__"
-
-
+        fields = ("id","name","email","phone_number","license_number","car_number")
 
 class DriverLocationSerializer(serializers.ModelSerializer):
     class Meta:
@@ -14,6 +12,6 @@ class DriverLocationSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
-class DriverListSerializer(serializers.Serializer):
+class PassengerSerializer(serializers.Serializer):
     longitude = serializers.DecimalField(max_digits=15,decimal_places=8)
     latitude = serializers.DecimalField(max_digits=15,decimal_places=8)
